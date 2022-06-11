@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <title>Drummer</title>
+</head>
+<body>
+  <main>
+    <div data-sound="65" class="sounds" id="j">
+      <kbd>A</kbd>
+      <p>CLAP</p>
+    </div>
+    <div data-sound="83"  class="sounds">
+      <kbd>S</kbd>
+      <p>HIHAT</p>
+    </div>
+    <div data-sound="68" class="sounds">
+      <kbd>D</kbd>
+      <p>KICK</p>
+    </div>
+    <div data-sound="70"  class="sounds">
+      <kbd>F</kbd>
+      <p>OPENHAT</p>
+    </div>
+    <div data-sound="71"  class="sounds">
+      <kbd>G</kbd>
+      <p>BOOM</p>
+    </div>
+    <div data-sound="72" class="sounds">
+      <kbd>H</kbd>
+      <p>RIDE</p>
+    </div>
+    <div data-sound="74"  class="sounds">
+      <kbd>J</kbd>
+      <p>SNARE</p>
+    </div>
+    <div data-sound="75" class="sounds">
+      <kbd>K</kbd>
+      <p>TOM</p>
+    </div>
+    <div data-sound="76"  class="sounds">
+      <kbd>L</kbd>
+      <p>TINK</p>
+    </div>
+  </main>
+  <audio src="sounds/sounds_clap.wav" id="65" ></audio>
+  <audio src="sounds/sounds_hihat.wav"  id="83"></audio>
+  <audio src="sounds/sounds_kick.wav" id="68"></audio>
+  <audio src="sounds/sounds_openhat.wav" id="70"></audio>
+  <audio src="sounds/sounds_boom.wav" id="71"></audio>
+  <audio src="sounds/sounds_ride.wav" id="72"></audio>
+  <audio src="sounds/sounds_snare.wav" id="74"></audio>
+  <audio src="sounds/sounds_tom.wav" id="75"></audio>
+  <audio src="sounds/sounds_tink.wav" id="76"></audio>
+  <script >
+    let prevElement;
+        function playSound(el) {
+          if (prevElement !== undefined) {
+            prevElement.classList.remove('playing');
+          }
+          let sound;
+          let element;
+          if (el.key === undefined) {
+            sound = this.getAttribute("data-sound");
+            element = this;
+          } else {
+            sound = el.key
+            sound = sound.charCodeAt(0)
+            element = document.querySelector(`[data-sound="${sound}"]`)
+          }
+          element.classList.add('playing');
+          prevElement = element;
+          var audio = document.getElementById(sound);
+          audio.play();
+        }
+
+        window.addEventListener("keydown", playSound);
+        let soundElements = document.querySelectorAll('.sounds');
+        soundElements.forEach(element => element.addEventListener('click', playSound));
+
+  </script>
+</body>
+</html>
